@@ -1,4 +1,4 @@
-﻿# 🌟 Bodh AI
+# 🌟 Bodh AI
 
 <div align="center">
 
@@ -20,7 +20,7 @@
 
 *Made with ❤️ by [Aarush](https://github.com/aarush0008x) • In Collab With [Renuka](https://github.com/Renuka-wq)*
 
-[Features](#-key-features) • [Installation](#-1-line-quick-installation) • [Uninstallation](#-1-line-uninstallation-all-devices) • [iOS / iPhone Guide](#-how-to-use-on-ios--iphone) • [CLI Commands](#-cli-commands) • [Architecture](#-architecture)
+[Features](#-key-features) • [Installation](#-1-line-quick-installation) • [Uninstallation](#-1-line-uninstallation-all-devices) • [Android Guide](#-how-to-use-on-android) • [iOS / iPhone Guide](#-how-to-use-on-ios--iphone) • [CLI Commands](#-cli-commands) • [Architecture](#-architecture)
 
 </div>
 
@@ -53,8 +53,9 @@ curl -fsSL https://api.bodhai.aarushdevworld.workers.dev/install.sh | bash
 ```
 
 ### 🤖 Android (Termux)
+> **Prerequisite**: Install **[Termux from F-Droid](https://f-droid.org/en/packages/com.termux/)** *(Recommended)* or **[GitHub Releases](https://github.com/termux/termux-app/releases/latest)**. *(Do not use Google Play Store version as it is deprecated).*
 ```bash
-pkg install curl python -y && curl -fsSL https://api.bodhai.aarushdevworld.workers.dev/install.sh | bash
+pkg update -y && pkg install curl python -y && curl -fsSL https://api.bodhai.aarushdevworld.workers.dev/install.sh | bash
 ```
 
 ### 🐧 Linux (Ubuntu / Debian / Arch / Fedora)
@@ -91,11 +92,50 @@ rm -f $PREFIX/bin/bodh bodh.py && rm -rf ~/.bodhai
 
 ---
 
+## 🤖 How to Use on Android
+
+You can run Bodh AI on Android either natively inside the terminal or as a standalone app:
+
+### Method 1: Android Native Terminal (Termux)
+1. Download & install **Termux** from **[F-Droid](https://f-droid.org/en/packages/com.termux/)** *(Recommended)* or **[GitHub Releases](https://github.com/termux/termux-app/releases/latest)** *(APK direct download)*.
+   > *Note: Please avoid the Google Play Store build of Termux as it is outdated and unsupported.*
+2. Launch Termux and run the 1-command installer:
+   ```bash
+   pkg update -y && pkg install curl python -y
+   curl -fsSL https://api.bodhai.aarushdevworld.workers.dev/install.sh | bash
+   ```
+3. Type `bodh` anytime to launch!
+
+---
+
+### Method 2: Android Progressive Web App (PWA)
+1. Open **Chrome**, **Brave**, or **Edge** on your Android device.
+2. Visit:
+   ```text
+   https://api.bodhai.aarushdevworld.workers.dev
+   ```
+3. Tap the **Three Dots (⋮)** menu in the top right > Tap **"Install app"** or **"Add to Home screen"**.
+4. Bodh AI will appear on your app drawer and home screen as a standalone application.
+
+---
+
 ## 📱 How to Use on iOS / iPhone
 
 You can use Bodh AI on your iPhone or iPad using **three convenient methods**:
 
-### Method 1: Apple Shortcuts (Siri / Action Button / Home Screen Widget)
+### Method 1: Progressive Web App (PWA) / Safari (Recommended)
+1. Open **Safari** on your iPhone.
+2. Navigate to:
+   ```text
+   https://api.bodhai.aarushdevworld.workers.dev
+   ```
+3. Tap the **Share Button** (box with arrow pointing up at the bottom).
+4. Scroll down and tap **"Add to Home Screen"**.
+5. You now have a full-screen **Bodh AI App icon** on your iPhone home screen!
+
+---
+
+### Method 2: Apple Shortcuts (Siri / Action Button / Home Screen Widget)
 1. Open the **Shortcuts** app on iOS.
 2. Create a new shortcut named **"Ask Bodh AI"**.
 3. Add action: **"Ask for Input"** (Prompt: *"What do you want to ask Bodh AI?"*).
@@ -108,7 +148,7 @@ You can use Bodh AI on your iPhone or iPad using **three convenient methods**:
 
 ---
 
-### Method 2: iOS Terminal (iSH Shell / a-Shell)
+### Method 3: iOS Terminal (iSH Shell / a-Shell)
 1. Install **[a-Shell](https://apps.apple.com/app/a-shell/id1473805438)** or **[iSH](https://apps.apple.com/app/ish-shell/id1436902243)** from the App Store (Free).
 2. Open the terminal app and run:
    ```bash
