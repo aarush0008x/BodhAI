@@ -68,19 +68,7 @@ curl -fsSL https://api.bodhai.aarushdevworld.workers.dev/install.sh | bash
 
 You can use Bodh AI on your iPhone or iPad using **three convenient methods**:
 
-### Method 1: Progressive Web App (PWA) / Safari (Recommended)
-1. Open **Safari** on your iPhone.
-2. Navigate to:
-   ```text
-   https://api.bodhai.aarushdevworld.workers.dev
-   ```
-3. Tap the **Share Button** (box with arrow pointing up at the bottom).
-4. Scroll down and tap **"Add to Home Screen"**.
-5. You now have a full-screen **Bodh AI App icon** on your iPhone home screen!
-
----
-
-### Method 2: Apple Shortcuts (Siri / Action Button / Home Screen Widget)
+### Method 1: Apple Shortcuts (Siri / Action Button / Home Screen Widget)
 1. Open the **Shortcuts** app on iOS.
 2. Create a new shortcut named **"Ask Bodh AI"**.
 3. Add action: **"Ask for Input"** (Prompt: *"What do you want to ask Bodh AI?"*).
@@ -93,7 +81,7 @@ You can use Bodh AI on your iPhone or iPad using **three convenient methods**:
 
 ---
 
-### Method 3: iOS Terminal (iSH Shell / a-Shell)
+### Method 2: iOS Terminal (iSH Shell / a-Shell)
 1. Install **[a-Shell](https://apps.apple.com/app/a-shell/id1473805438)** or **[iSH](https://apps.apple.com/app/ish-shell/id1436902243)** from the App Store (Free).
 2. Open the terminal app and run:
    ```bash
