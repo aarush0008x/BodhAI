@@ -177,139 +177,39 @@ echo "Type 'bodh' to start."
       return new Response(sh, { headers: { ...cors, "Content-Type": "text/plain; charset=utf-8" } });
     }
 
-    if (url.pathname === "/bodh.py" || url.pathname === "/bodhai.py") {
-      const pyCode = `#!/usr/bin/env python3
-import sys
-import os
-import json
-import urllib.parse
-
-try:
-    import httpx
-    from rich.console import Console, Group
-    from rich.panel import Panel
-    from rich.markdown import Markdown
-    from rich.text import Text
-    from rich.table import Table
-    from rich.box import ROUNDED
-except ImportError:
-    print("Installing dependencies (rich, httpx)...")
-    import subprocess
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "rich", "httpx"])
-    import httpx
-    from rich.console import Console, Group
-    from rich.panel import Panel
-    from rich.markdown import Markdown
-    from rich.text import Text
-    from rich.table import Table
-    from rich.box import ROUNDED
-
-import asyncio
-from datetime import datetime
-
-console = Console()
-API_BASE = "https://api.bodhai.aarushdevworld.workers.dev"
-
-LOGO = r"""
- ██████╗  ██████╗ ██████╗ ██╗  ██╗     █████╗ ██╗
- ██╔══██╗██╔═══██╗██╔══██╗██║  ██║    ██╔══██╗██║
- ██████╔╝██║   ██║██║  ██║███████║    ███████║██║
- ██╔══██╗██║   ██║██║  ██║██╔══██║    ██╔══██║██║
- ██████╔╝╚██████╔╝██████╔╝██║  ██║    ██║  ██║██║
- ╚═════╝  ╚═════╝ ╚═════╝ ╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝
-"""
-
-def print_banner():
-    console.clear()
-    banner = Group(
-        Text(LOGO, style="bold cyan"),
-        Text("UNIVERSAL CLOUD AI ASSISTANT", style="bold magenta", justify="center"),
-        Text("Accessible on Android, Mac, Linux & Windows", style="dim", justify="center"),
-        Text("Made with ❤️ by Aarush", style="bold yellow", justify="center"),
-        Text("Type your prompt directly or /help for commands", style="dim", justify="center")
-    )
-    console.print(Panel(banner, border_style="cyan", box=ROUNDED, padding=(1, 2)))
-    console.print()
-
-async def search_web(query: str):
-    url = f"https://html.duckduckgo.com/html/?q={urllib.parse.quote(query)}"
-    headers = {"User-Agent": "Mozilla/5.0"}
-    import re, html
-    try:
-        async with httpx.AsyncClient(timeout=10.0) as client:
-            r = await client.post(url, headers=headers, data={"q": query})
-            titles = re.findall(r'<h2 class="result__title">[\s\S]*?<a[^>]+href="([^"]+)"[^>]*>([\s\S]*?)</a>', r.text)
-            snippets = re.findall(r'<a[^>]+class="result__snippet"[^>]*>([\s\S]*?)</a>', r.text)
-            results = []
-            for idx in range(min(len(titles), len(snippets), 4)):
-                t = re.sub(r'<[^>]+>', '', titles[idx][1]).strip()
-                s = re.sub(r'<[^>]+>', '', snippets[idx]).strip()
-                u = titles[idx][0]
-                if 'uddg=' in u:
-                    u = urllib.parse.unquote(urllib.parse.parse_qs(urllib.parse.urlparse(u).query).get('uddg', [''])[0])
-                results.append(f"[{idx+1}] {html.unescape(t)}\\nURL: {u}\\nSnippet: {html.unescape(s)}\\n")
-            return "\\n".join(results)
-    except Exception:
-        return ""
-
-async def stream_chat(prompt: str, history: list):
-    encoded = urllib.parse.quote(prompt)
-    url = f"{API_BASE}/api/chat?q={encoded}"
-    
-    console.print(f"\\n[bold cyan]◈ BodhAI[/bold cyan] [dim][Cloud AI][/dim] > ", end="")
-    try:
-        async with httpx.AsyncClient(timeout=45.0) as client:
-            res = await client.get(url)
-            if res.status_code == 200:
-                data = res.json()
-                text = data.get("response") or "No response from AI"
-                console.print()
-                console.print(Panel(Markdown(text), border_style="cyan", box=ROUNDED, padding=(1, 2)))
-                console.print()
-            else:
-                console.print(f"[red]Error {res.status_code}:[/red] {res.text}\\n")
-    except Exception as e:
-        console.print(f"[red]Network error:[/red] {e}\\n")
-
-async def main():
-    print_banner()
-    history = []
-    while True:
-        try:
-            user_input = console.input("[bold cyan]BodhAI[/bold cyan] > ").strip()
-            if not user_input:
-                continue
-            lower = user_input.lower()
-            if lower in ("/exit", "exit", "quit", ":q"):
-                console.print("\\n[bold cyan]Goodbye from Bodh AI![/bold cyan] [dim]Made with [bold red]❤️[/bold red] by [bold yellow]Aarush[/bold yellow][/dim]\\n")
-                break
-            elif lower in ("/help", "help", "?"):
-                t = Table(title="◈ Bodh AI Universal Commands", box=ROUNDED)
-                t.add_column("Command", style="bold yellow")
-                t.add_column("Description", style="white")
-                t.add_row("/search <query>", "Search live web with AI synthesis")
-                t.add_row("/clear", "Clear screen")
-                t.add_row("/exit", "Quit")
-                console.print(t)
-                console.print("[dim]Made with [bold red]❤️[/bold red] by [bold yellow]Aarush[/bold yellow][/dim]\\n")
-            elif lower in ("/clear", "cls", "clear"):
-                print_banner()
-            elif lower.startswith("/search"):
-                q = user_input.split(maxsplit=1)[1] if len(user_input.split()) > 1 else ""
-                if q:
-                    console.print(f"\\n[cyan]Searching live web for:[/cyan] [yellow]\\"{q}\\"[/yellow]...")
-                    web_ctx = await search_web(q)
-                    full_p = f"User Question: {q}\\n\\nLive Search Context:\\n{web_ctx}\\n\\nInstruction: Provide an accurate, comprehensive answer citing sources."
-                    await stream_chat(full_p, history)
-            else:
-                await stream_chat(user_input, history)
-        except (KeyboardInterrupt, EOFError):
-            break
-
-if __name__ == "__main__":
-    asyncio.run(main())
+    if (url.pathname === "/uninstall.ps1" || url.pathname === "/uninstall-windows") {
+      const ps1Un = `# Bodh AI Windows 1-Command Uninstaller
+Write-Host "Uninstalling Bodh AI from Windows..." -ForegroundColor Cyan
+Remove-Item "$env:LOCALAPPDATA\\Microsoft\\WindowsApps\\bodh*.bat", "$env:LOCALAPPDATA\\Microsoft\\WindowsApps\\bodh*.py", "$HOME\\.bodhai", "$HOME\\bodh.exe", "$HOME\\ollama\\bodh*" -Recurse -Force -ErrorAction SilentlyContinue
+Write-Host "✓ Bodh AI has been completely removed from your Windows system." -ForegroundColor Green
 `;
-      return new Response(pyCode, { headers: { ...cors, "Content-Type": "text/plain; charset=utf-8" } });
+      return new Response(ps1Un, { headers: { ...cors, "Content-Type": "text/plain; charset=utf-8" } });
+    }
+
+    if (url.pathname === "/uninstall.sh" || url.pathname === "/uninstall" || url.pathname === "/uninstall-unix") {
+      const shUn = `#!/usr/bin/env bash
+echo "Uninstalling Bodh AI..."
+rm -f /usr/local/bin/bodh "$HOME/.local/bin/bodh" "$PREFIX/bin/bodh" bodh.py 2>/dev/null || true
+rm -rf "$HOME/.bodhai" 2>/dev/null || true
+echo "✓ Bodh AI has been completely removed from your system."
+`;
+      return new Response(shUn, { headers: { ...cors, "Content-Type": "text/plain; charset=utf-8" } });
+    }
+
+    if (url.pathname === "/bodh.py" || url.pathname === "/bodhai.py") {
+      try {
+        const ghResp = await fetch("https://raw.githubusercontent.com/aarush0008x/BodhAI/main/cli.py", {
+          headers: { "User-Agent": "BodhAI-Installer" }
+        });
+        if (ghResp.ok) {
+          const pyScript = await ghResp.text();
+          return new Response(pyScript, { headers: { ...cors, "Content-Type": "text/plain; charset=utf-8" } });
+        }
+      } catch (err) {}
+      return new Response("# Error fetching latest Bodh AI client. Please install from https://github.com/aarush0008x/BodhAI", {
+        status: 500,
+        headers: { ...cors, "Content-Type": "text/plain; charset=utf-8" }
+      });
     }
 
     // ============================================================
