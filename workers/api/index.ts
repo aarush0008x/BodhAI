@@ -198,7 +198,7 @@ echo "✓ Bodh AI has been completely removed from your system."
 
     if (url.pathname === "/bodh.py" || url.pathname === "/bodhai.py") {
       try {
-        const ghResp = await fetch("https://raw.githubusercontent.com/aarush0008x/BodhAI/main/cli.py", {
+        const ghResp = await fetch("https://raw.githubusercontent.com/aarush0008x/BodhAI/main/bodh.py", {
           headers: { "User-Agent": "BodhAI-Installer" }
         });
         if (ghResp.ok) {
