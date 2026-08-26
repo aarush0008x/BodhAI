@@ -20,7 +20,7 @@
 
 *Made with ❤️ by [Aarush](https://github.com/aarush0008x) • In Collab With [Renuka](https://github.com/Renuka-wq)*
 
-[Features](#-key-features) • [Installation](#-1-line-quick-installation) • [iOS / iPhone Guide](#-how-to-use-on-ios--iphone) • [CLI Commands](#-cli-commands) • [Architecture](#-architecture)
+[Features](#-key-features) • [Installation](#-1-line-quick-installation) • [Uninstallation](#-1-line-uninstallation-all-devices) • [iOS / iPhone Guide](#-how-to-use-on-ios--iphone) • [CLI Commands](#-cli-commands) • [Architecture](#-architecture)
 
 </div>
 
@@ -61,6 +61,33 @@ pkg install curl python -y && curl -fsSL https://api.bodhai.aarushdevworld.worke
 ```bash
 curl -fsSL https://api.bodhai.aarushdevworld.workers.dev/install.sh | bash
 ```
+
+---
+
+## 🗑️ 1-Line Uninstallation (All Devices)
+
+To completely remove Bodh AI and its local files from any system:
+
+### 🪟 Windows (PowerShell)
+```powershell
+iwr -useb https://api.bodhai.aarushdevworld.workers.dev/uninstall.ps1 | iex
+```
+*(Removes `bodh.bat`, `bodhai.py`, database, and executables).*
+
+### 🍎 macOS / 🐧 Linux (Terminal)
+```bash
+curl -fsSL https://api.bodhai.aarushdevworld.workers.dev/uninstall.sh | bash
+```
+
+### 🤖 Android (Termux)
+```bash
+rm -f $PREFIX/bin/bodh bodh.py && rm -rf ~/.bodhai
+```
+
+### 📱 iOS / iPhone
+- **PWA**: Long-press the **Bodh AI** icon on your home screen > **Delete Bookmark / App**.
+- **Shortcuts**: Open the **Shortcuts** app > Delete the **"Ask Bodh AI"** shortcut.
+- **iSH / a-Shell**: Run `rm -f bodh.py && rm -rf ~/.bodhai`.
 
 ---
 
