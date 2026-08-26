@@ -1,0 +1,16 @@
+﻿__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.env
+.env.local
+*.db
+*.sqlite
+*.sqlite3
+bodhai.db
+bodhai_test.db
+venv/
+.venv/
+env/

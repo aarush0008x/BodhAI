@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Light Theme Variables (Default when data-theme="light") */
+:root,
+[data-theme="light"],
+html.light {
+  --background: #F8FAFC;
+  --surface: #FFFFFF;
+  --surface-elevated: #F1F5F9;
+  --border: #E2E8F0;
+  --input-border: #CBD5E1;
+  
+  --foreground: #0F172A;
+  --muted-bg: #F1F5F9;
+  --muted-fg: #64748B;
+  
+  --primary: #F59E0B;
+  --primary-fg: #0F172A;
+  --primary-hover: #D97706;
+  
+  --secondary: #4F46E5;
+  --secondary-fg: #FFFFFF;
+  
+  --accent: #F59E0B;
+  --accent-teal: #0D9488;
+  --accent-fg: #FFFFFF;
+  --accent-subtle: #FEF3C7;
+  
+  --success: #16A34A;
+  --danger: #DC2626;
+  --ring-color: rgba(245, 158, 11, 0.35);
+  
+  color-scheme: light;
+}
+
+/* Dark Theme Variables (Applied when data-theme="dark" or html.dark) */
+[data-theme="dark"],
+html.dark {
+  --background: #080B12;
+  --surface: #101620;
+  --surface-elevated: #151C28;
+  --border: #273244;
+  --input-border: #334155;
+  
+  --foreground: #F8FAFC;
+  --muted-bg: #162033;
+  --muted-fg: #94A3B8;
+  
+  --primary: #F5A623;
+  --primary-fg: #080B12;
+  --primary-hover: #D97706;
+  
+  --secondary: #6366F1;
+  --secondary-fg: #FFFFFF;
+  
+  --accent: #F59E0B;
+  --accent-teal: #14B8A6;
+  --accent-fg: #080B12;
+  --accent-subtle: #1E293B;
+  
+  --success: #22C55E;
+  --danger: #EF4444;
+  --ring-color: rgba(245, 158, 11, 0.35);
+  
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-fg);
+}
+
+/* Code block markdown formatting */
+.prose-custom {
+  color: var(--foreground);
+  line-height: 1.65;
+  font-size: 0.95rem;
+}
+
+.prose-custom p {
+  margin-bottom: 0.75rem;
+}
+
+.prose-custom p:last-child {
+  margin-bottom: 0;
+}
+
+.prose-custom ul, .prose-custom ol {
+  margin-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-custom li {
+  margin-bottom: 0.25rem;
+}
+
+.prose-custom h1, .prose-custom h2, .prose-custom h3, .prose-custom h4 {
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+.prose-custom code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.875em;
+  background-color: var(--muted-bg);
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.25rem;
+  color: var(--accent);
+}
+
+.prose-custom pre code {
+  background-color: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+.prose-custom blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  color: var(--muted-fg);
+  font-style: italic;
+}
+
+.prose-custom table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-custom th, .prose-custom td {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.prose-custom th {
+  background-color: var(--muted-bg);
+  font-weight: 600;
+}
+
+/* Typing cursor animation */
+.typing-cursor::after {
+  content: '▋';
+  display: inline-block;
+  vertical-align: baseline;
+  animation: blink 1s steps(2, start) infinite;
+  color: var(--accent);
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}

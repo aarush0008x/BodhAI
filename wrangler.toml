@@ -1,0 +1,35 @@
+name = "bodhai-api"
+main = "workers/api/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+workers_dev = true
+
+routes = [
+  { pattern = "api.bodhai.aarushdevworld.workers.dev", custom_domain = true }
+]
+
+# Cloudflare Workers AI Binding
+[ai]
+binding = "AI"
+
+# Cloudflare D1 Database Binding
+[[d1_databases]]
+binding = "DB"
+database_name = "bodhai-db"
+database_id = "d0cb6d6f-b338-42d4-8eb0-19a757548112"
+migrations_dir = "db/migrations"
+
+# Environment Variables
+[vars]
+DEFAULT_AI_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast"
+AI_PROVIDER = "cloudflare"
+AUTHENTICATED_DAILY_LIMIT = "30"
+GUEST_DAILY_LIMIT = "5"
+MAX_PROMPT_CHARS = "10000"
+DB_HOST = "sql309.infinityfree.com"
+DB_PORT = "3306"
+DB_USER = "if0_42611127"
+DB_PASSWORD = "rS1R7AnvDuT9iQv"
+DB_NAME = "if0_42611127_ai"
+MYSQL_URL = "mysql://if0_42611127:rS1R7AnvDuT9iQv@sql309.infinityfree.com:3306/if0_42611127_ai"
